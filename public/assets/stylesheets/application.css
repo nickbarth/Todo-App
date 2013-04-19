@@ -1,0 +1,165 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: #fef;
+  font-family: sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #aaa;
+}
+
+#todo-list {
+  width: 500px;
+  margin: 20px auto;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  list-style: none;
+  box-shadow: 2px 2px 2px #ddd;
+  position: relative;
+}
+
+h1 {
+  font-size: 18px;
+  margin: 20px auto;
+  width: 500px;
+}
+
+form {
+  margin: 20px auto;
+  width: 500px;
+}
+
+input {
+  border: 1px solid #aaa;
+  box-shadow: 2px 2px 2px #ddd;
+  min-height: 35px;
+  border-radius: 3px;
+  font-size: 14px;
+  width: 490px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-family: sans-serif;
+  padding: 0 5px;
+  color: #888;
+}
+
+button {
+  float: right;
+  box-shadow: 2px 2px 2px #ddd;
+  border: 1px solid #aaa;
+  color: #888;
+  background: #fff;
+  display: inline-block;
+  position: relative;
+  border-radius: 3px;
+  line-height: 35px;
+  font-size: 14px;
+  min-width: 90px;
+  font-weight: bold;
+  font-family: sans-serif;
+  transition: color 0.2s ease-in-out;
+  transition: background 0.2s ease-in-out;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+button:after {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  height: 6px;
+  content: ' ';
+  display: block;
+  background: #ddd;
+  transition: background 0.2s ease-in-out;
+}
+
+button:hover {
+  color: #bbb;
+  background: #eee;
+}
+
+button:hover:after {
+  background: #eee;
+}
+
+.clear {
+  clear: both;
+}
+
+.todo-item {
+  border-bottom: 1px solid #ccf;
+  font-weight: bold;
+  background: #fff;
+}
+
+.todo-item:last-child {
+  border-bottom: 0;
+}
+
+.todo-item:nth-child(even) {
+}
+
+.todo-item:nth-child(odd) {
+  background: #fff;
+}
+
+#todo-list:after, #todo-list:before {
+  content: ' ';
+  position: absolute;
+  display: block;
+  bottom: 0;
+  border: 1px solid #bbb;
+  height: 1px;
+  width: 100%;
+  border-raidus: 9px;
+  background: #fff;
+}
+
+#todo-list:before {
+  bottom: 2px;
+  width: 99%;
+}
+
+#todo-list:before {
+  bottom: -2px;
+  width: 99%;
+  box-shadow: 2px 2px 2px #ddd;
+}
+
+.col {
+  display: inline-block;
+}
+
+.col:first-child {
+  border-right: 4px double #fcf;
+  margin-right: 5px;
+  min-height: 30px;
+  min-width: 30px;
+}
+
+.checkbox {
+  background: #fff;
+  display: block;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+  color: #fcf;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.todo-item div.checkbox:after {
+  content: ' ';
+  display: inline-block;
+}
+
+.todo-item.done div.checkbox:after {
+  content: '\2714';
+}
+
+.todo-item.done div.col:last-child {
+  text-decoration: line-through;
+}
