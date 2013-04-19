@@ -10,8 +10,8 @@
     <h1>Todo List</h1>
     <ul class="todo-list">
       <li class="todo-item"><div class="col">&nbsp;</div><div class="col"></div></li>
-      <li class="todo-item done"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item</div></li>
-      <li class="todo-item done"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item</div></li>
+      <li class="todo-item completed"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item</div></li>
+      <li class="todo-item completed"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item</div></li>
       <li class="todo-item"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item</div></li>
       <li class="todo-item"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item</div></li>
       <li class="todo-item"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item</div></li>
@@ -43,6 +43,13 @@
          //   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
          // })();
       //]]>
+      $('.todo-item .col:last-child').click(function () {
+        $('.todo-item').removeClass('selected');
+        $(this).parent().toggleClass('selected');
+      });
+      $('.checkbox').click(function () {
+        $(this).parent().parent().toggleClass('completed');
+      });
     </script>
   </body>
 </html>

@@ -67,16 +67,25 @@ h2 {
   cursor: pointer;
 }
 
+.todo-item.selected {
+  background: #ddd;
+}
+
 .todo-item:hover {
   background: #eee;
 }
 
-.todo-item div.checkbox:after {
+.todo-item .checkbox:after {
   content: ' ';
   display: inline-block;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
 }
 
-.todo-item.done div.checkbox:after {
+.todo-item.completed div.checkbox:after {
   content: '\2714';
 }
 
@@ -88,7 +97,7 @@ h2 {
   border-bottom: 0;
 }
 
-.todo-item.done div.col:last-child {
+.todo-item.completed div.col:last-child {
   text-decoration: line-through;
 }
 
@@ -101,6 +110,11 @@ h2 {
   margin-right: 5px;
   min-height: 30px;
   min-width: 30px;
+}
+
+.col:last-child {
+  width: 450px;
+  line-height: 30px;
 }
 
 .checkbox {
