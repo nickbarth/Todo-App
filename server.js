@@ -1,20 +1,17 @@
-var newrelic = require('newrelic'),
-    express = require('express'),
+var express = require('express'),
     app = express(),
-    port = process.env.PORT || 80;
+    http = require('http'),
+    server = http.createServer(app),
+    io = require('socket.io').listen(server);
 
 app.configure(function(){
-  app.use('/assets', express.static(__dirname + '/assets'));
+  app.set('view engine', 'ejs');
   app.use('/', express.static(__dirname + '/public'));
+  app.use(express.bodyParser());
 });
 
-app.set('view engine', 'ejs');
-app.set('view options', { layout: false });
-app.set('views', __dirname + '/public/views');
+app.use(require(__dirname + '/app/main'));
+// app.use(require(__dirname + '/app/forms')(io));
+app.use(app.router);
 
-app.use(express.basicAuth('secret', 'secret'));
-app.get('/', function (req, res) {
-  res.render('index');
-});
-
-app.listen(port);
+module.exports = server;
