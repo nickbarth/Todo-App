@@ -1,0 +1,23 @@
+{
+  "name": "Todo List",
+  "version": "1.0.0",
+  "description": "A Todo List",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Nick Barth",
+  "dependencies": {
+    "express": "~3.1.0",
+    "newrelic": "~0.9.18-138",
+    "ejs": "~0.8.3"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
+}
