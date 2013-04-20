@@ -10,13 +10,13 @@
     <h1>Todo List</h1>
     <ul class="todo-list">
       <li class="todo-item"><div class="col">&nbsp;</div><div class="col"></div></li>
-      <li class="todo-item completed"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item</div></li>
-      <li class="todo-item completed"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item</div></li>
-      <li class="todo-item"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item</div></li>
-      <li class="todo-item"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item</div></li>
-      <li class="todo-item"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item</div></li>
-      <li class="todo-item"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item</div></li>
-      <li class="todo-item"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item</div></li>
+      <li class="todo-item completed"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item<i class="destroy"></i></div></li>
+      <li class="todo-item completed"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item<i class="destroy"></i></div></li>
+      <li class="todo-item"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item<i class="destroy"></i></div></li>
+      <li class="todo-item"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item<i class="destroy"></i></div></li>
+      <li class="todo-item"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item<i class="destroy"></i></div></li>
+      <li class="todo-item"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item<i class="destroy"></i></div></li>
+      <li class="todo-item"><div class="col"><div class="checkbox"></div></div><div class="col">Some neat todo item<i class="destroy"></i></div></li>
       <li class="todo-item"><div class="col"></div><div class="col"></div></li>
     </ul>
     <h2>Update Item</h2>
@@ -49,6 +49,9 @@
       });
       $('.checkbox').click(function () {
         $(this).parent().parent().toggleClass('completed');
+      });
+      $('.destroy').click(function () {
+        $(this).parent().parent().remove();
       });
     </script>
   </body>

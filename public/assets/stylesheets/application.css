@@ -71,10 +71,6 @@ h2 {
   background: #ddd;
 }
 
-.todo-item:hover {
-  background: #eee;
-}
-
 .todo-item .checkbox:after {
   content: ' ';
   display: inline-block;
@@ -87,10 +83,6 @@ h2 {
 
 .todo-item.completed div.checkbox:after {
   content: '\2714';
-}
-
-.todo-item:active {
-  background: #ddd;
 }
 
 .todo-item:last-child {
@@ -125,6 +117,24 @@ h2 {
   color: #fcf;
   margin: 5px;
   cursor: pointer;
+}
+
+.destroy {
+  float: right;
+  display: none;
+}
+
+.todo-item.selected .destroy {
+  display: block;
+}
+
+.destroy:after {
+  content: 'x';
+  display: block;
+  font-style: normal;
+  text-align: center;
+  font-family: sans-serif;
+  color: #bbb;
 }
 
 form {
