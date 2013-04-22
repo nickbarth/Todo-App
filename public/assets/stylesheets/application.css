@@ -207,6 +207,7 @@ button:after {
   width: 100%;
   position: absolute;
   bottom: 0;
+  right: 0;
   height: 6px;
   content: ' ';
   display: block;
