@@ -2,12 +2,7 @@
   'use strict';
 
   app = app || {};
-
-  var noSocket = function () {
-    return { removeAllListeners: new Function, on: new Function };
-  }};
-
-  app.socket = typeof io === 'undefined' ? noSocket : io.connect('http://special.io');
+  app.socket = io.connect();
 
   app.Todo = Backbone.Model.extend({
     idAttribute: '_id',
@@ -27,18 +22,20 @@
       var dupl = this.any(function(todo) {
         return newTodo.id === todo.id;
       });
-      if ((!dupl && newTodo.id) || app.socket instanceof noSocket) {
+      if (!dupl && newTodo.id) {
         return Backbone.Collection.prototype.add.call(this, newTodo);
       }
     }
   });
 
   app.TodoView = Backbone.View.extend({
-    tagName: 'tr',
+    tagName: 'li',
+    className: 'todo-item',
     template: Handlebars.compile($('#todo-template').text()),
     events: {
-      'click .edit-btn'   : 'editTodo',
-      'click .remove-btn' : 'removeTodo'
+      'click .edit-item'   : 'editTodo',
+      'click .remove-item' : 'removeTodo',
+      'click .checkbox'    : 'toggleTodo'
     },
     initialize: function () {
       this.model.on('change', this.render, this);
@@ -56,21 +53,27 @@
     },
     removeTodo: function () {
       app.socket.removeAllListeners('todo/'+this.model.id+'/update');
-      this.unbind();
-      this.remove();
       this.model.off();
       this.model.destroy();
+      this.unbind();
+      this.remove();
+      return false;
+    },
+    toggleTodo: function () {
+      this.model.set({ completed: !!!this.model.get('completed') });
+      this.model.save();
       return false;
     },
     render: function () {
-      this.$el.attr('style', this.model.get("selected") ? 'background:#ddffff' : '');
+      this.model.get('selected') ? this.$el.addClass('selected') : this.$el.removeClass('selected');
+      this.model.get('completed') ? this.$el.addClass('completed') : this.$el.removeClass('completed');
       this.$el.html(this.template(this.model.toJSON()));
       return this;
     }
   });
 
   app.TodoListView = Backbone.View.extend({
-    el: $('#todo-list'),
+    el: $('.todo-list'),
     initialize: function () {
       this.collection.on('add', this.addTodo, this);
       app.socket.on('todo/new', (function(data){this.collection.add(new app.Todo(data))}).bind(this));
@@ -85,32 +88,29 @@
   });
 
   app.EditTodoView = Backbone.View.extend({
-    el: $('#edit-todo'),
+    el: $('.todo-form'),
     events: {
-      'click .publish-btn' : 'createTodo',
-      'click .save-btn'   : 'saveTodo',
-      'click .cancel-btn' : 'cancel'
+      'click .publish-item' : 'createTodo',
+      'click .save-item'    : 'saveTodo',
+      'click .cancel-item'  : 'cancel'
     },
     initialize: function () {
       this.$titleEl = this.$el.find('.todo-title');
-      this.$completedEl = this.$el.find('.todo-completed');
-      this.$saveBtn = this.$el.find('.save-btn');
-      this.$cancelBtn = this.$el.find('.cancel-btn');
-      this.$publishBtn = this.$el.find('.publish-btn');
-      this.$todoHeaderEl = this.$el.find('#todo-header');
+      this.$saveBtn = this.$el.find('.save-item');
+      this.$cancelBtn = this.$el.find('.cancel-item');
+      this.$publishBtn = this.$el.find('.publish-item');
+      this.$todoHeaderEl = this.$el.find('.todo-form-header');
     },
     setEditView: function () {
-      this.$todoHeaderEl.text('Edit Todo');
+      this.$todoHeaderEl.text('Update Item');
       this.$titleEl.val(this.model.get('title'));
-      this.$completedEl.val(this.model.get('completed'));
       this.$publishBtn.css({ display: 'none' });
       this.$saveBtn.css({ display: 'inline-block' });
       this.$cancelBtn.css({ display: 'inline-block' });
     },
     setPublishView: function () {
-      this.$todoHeaderEl.text('Add New Todo');
+      this.$todoHeaderEl.text('Add New Item');
       this.$titleEl.val('');
-      this.$completedEl.val('');
       this.$publishBtn.css({ display: 'block' });
       this.$saveBtn.css({ display: 'none' });
       this.$cancelBtn.css({ display: 'none' });
@@ -124,12 +124,12 @@
       this.setEditView();
     },
     createTodo: function () {
-      todoList.create({title: this.$titleEl.val(), completed: this.$completedEl.val()})
+      todoList.create({ title: this.$titleEl.val() })
       this.cancel();
       return false;
     },
     saveTodo: function () {
-      this.model.set({ title: this.$titleEl.val(), completed: this.$completedEl.val() });
+      this.model.set({ title: this.$titleEl.val() });
       this.model.save();
       this.cancel();
       return false;
@@ -143,8 +143,9 @@
     }
   });
 
-  todoList = new app.TodoList();
-  todoListView = new app.TodoListView({collection: todoList});
+  var todoList = new app.TodoList(),
+      todoListView = new app.TodoListView({collection: todoList}),
+      editTodoView = new app.EditTodoView({model: new app.Todo()});
+
   todoList.fetch();
-  editTodoView = new app.EditTodoView({model: new app.Todo()});
 })(window, window.app);
