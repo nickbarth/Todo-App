@@ -91,9 +91,10 @@
   app.EditTodoView = Backbone.View.extend({
     el: $('.todo-form'),
     events: {
-      'click .publish-item' : 'createTodo',
-      'click .save-item'    : 'saveTodo',
-      'click .cancel-item'  : 'cancel'
+      'click .publish-item'  : 'createTodo',
+      'click .save-item'     : 'saveTodo',
+      'keypress .todo-title' : 'submitTodo',
+      'click .cancel-item'   : 'cancel'
     },
     initialize: function () {
       this.$titleEl = this.$el.find('.todo-title');
@@ -134,6 +135,16 @@
       this.model.save();
       this.cancel();
       return false;
+    },
+    submitTodo: function (e) {
+      if (e.keyCode == 13) {
+        if (this.$todoHeaderEl.text() === 'Add New Item') {
+          this.createTodo();
+        } else {
+          this.saveTodo();
+        }
+        return false;
+      }
     },
     cancel: function () {
       this.model.set('selected', false);
