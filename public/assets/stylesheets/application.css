@@ -68,7 +68,7 @@ h2 {
 }
 
 .todo-item.selected {
-  background: #ddd;
+  background: #dff;
 }
 
 .todo-item .checkbox:after {
@@ -89,24 +89,26 @@ h2 {
   border-bottom: 0;
 }
 
-.todo-item.completed div.col:last-child {
+.completed .col {
   text-decoration: line-through;
 }
 
 .col {
   display: inline-block;
+  width: 420px;
+  line-height: 20px;
 }
 
 .col:first-child {
   border-right: 4px double #fcf;
   margin-right: 5px;
-  min-height: 30px;
-  min-width: 30px;
+  width: 30px;
+  text-decoration: none;
 }
 
 .col:last-child {
-  width: 450px;
-  line-height: 30px;
+  width: 30px;
+  text-decoration: none;
 }
 
 .checkbox {
@@ -119,21 +121,27 @@ h2 {
   cursor: pointer;
 }
 
-.destroy {
-  float: right;
+.edit-item {
+  width: 100%;
+}
+
+.remove-item {
   display: none;
 }
 
-.todo-item.selected .destroy {
+.selected .remove-item {
   display: block;
+  width: 100%;
 }
 
-.destroy:after {
+.remove-item:after {
   content: 'x';
   display: block;
+  text-align: right;
   font-style: normal;
   text-align: center;
   font-family: sans-serif;
+  font-size: 16px;
   color: #bbb;
 }
 
@@ -199,4 +207,8 @@ button:hover {
 
 button:hover:after {
   background: #eee;
+}
+
+.cancel-item, .save-item {
+  display: none;
 }
