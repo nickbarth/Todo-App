@@ -11,7 +11,7 @@ app.configure(function(){
 });
 
 app.use(require(__dirname + '/app/main'));
-// app.use(require(__dirname + '/app/forms')(io));
+app.use(require(__dirname + '/app/todos')(io));
 app.use(app.router);
 
 module.exports = server;
