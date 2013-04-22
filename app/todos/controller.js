@@ -4,7 +4,7 @@ module.exports = (function (io) {
   TodoAPI = {
     // post '/todos'
     create: function (req, res) {
-      Todo.create(req.body.title, req.body.completed, function (todo) {
+      Todo.createItem(req.body.title, req.body.completed, function (todo) {
         io.sockets.emit('todo/new', todo);
         res.json(todo);
       });
@@ -28,7 +28,7 @@ module.exports = (function (io) {
     update: function (req, res) {
       Todo.findById(req.params.id, function (todo) {
         if (todo) {
-          todo.updateSettings(req.body.title, req.body.completed, function () {
+          todo.updateItem(req.body.title, req.body.completed, function () {
             io.sockets.emit('todo/'+todo.id+'/update', todo);
           });
         }
