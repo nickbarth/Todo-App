@@ -95,8 +95,12 @@ h2 {
 
 .col {
   display: inline-block;
-  width: 420px;
+  width: 450px;
   line-height: 20px;
+}
+
+.selected .col {
+  width: 420px;
 }
 
 .col:first-child {
@@ -107,8 +111,12 @@ h2 {
 }
 
 .col:last-child {
-  width: 30px;
+  width: 1px;
   text-decoration: none;
+}
+
+.selected .col:last-child {
+  width: 30px;
 }
 
 .checkbox {
