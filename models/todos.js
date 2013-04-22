@@ -22,7 +22,6 @@ TodoSchema.statics.createItem = (function (title, completed, callback) {
   });
   todo.save(function (err) {
     if (err) {
-      console.log(err);
       return callback(false);
     } else {
       return callback(todo);
