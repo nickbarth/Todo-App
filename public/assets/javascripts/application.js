@@ -6,6 +6,7 @@
 
   app.Todo = Backbone.Model.extend({
     idAttribute: '_id',
+    urlRoot: 'todos',
     defaults: function () {
       return {
         title: '',
@@ -53,8 +54,8 @@
     },
     removeTodo: function () {
       app.socket.removeAllListeners('todo/'+this.model.id+'/update');
-      this.model.off();
       this.model.destroy();
+      this.model.off();
       this.unbind();
       this.remove();
       return false;
