@@ -72,7 +72,7 @@ h2 {
 }
 
 .todo-item .checkbox:after {
-  content: ' ';
+  content: '\00A0';
   display: inline-block;
   font-family: monospace;
   font-size: 12px;
@@ -81,7 +81,7 @@ h2 {
   width: 100%;
 }
 
-.todo-item.completed div.checkbox:after {
+.todo-item.completed .checkbox:after {
   content: '\2714';
 }
 
